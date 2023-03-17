@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">Github User Apps</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="title_name">Nama</string>
+    <string name="dummy_item_name">Muhammad Hakam Fardana</string>
+    <string name="title_username">Username</string>
+    <string name="dummy_item_username">hakamf13</string>
+    <string name="title_followers">Followers</string>
+    <string name="dummy_item_followers">10</string>
+    <string name="title_following">Following</string>
+    <string name="dummy_item_following">20</string>
+    <string name="title_repository">Repository</string>
+    <string name="dummy_item_repository">30</string>
+    <string name="title_location">Location</string>
+    <string name="dummy_item_location">Indonesia</string>
+    <string name="title_company">Company</string>
+    <string name="dummy_item_company">Google LLC</string>
+    <string name="title_email">Email</string>
+    <string name="dummy_item_email">mhakamf13@gmail.com</string>
+
+    <string name="title_tabs_followers">Followers</string>
+    <string name="list_followers">List Followers</string>
+    <string name="title_tabs_following">Following</string>
+    <string name="list_following">List Following</string>
+
+    <string name="talkback_photo_profile">This is an User Photo Profile</string>
+    <string name="talkback_apps_logo">This is an Apps Logo</string>
+    <string name="talkback_tabs_follows">This is a tabs for Followers or Following</string>
+
+    <string name="action_search_text">Search an User</string>
+</resources>
