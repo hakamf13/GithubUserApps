@@ -4,7 +4,6 @@ import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
-@Parcelize
 data class ItemsItem(
 
 	@field:SerializedName("login")
@@ -15,9 +14,6 @@ data class ItemsItem(
 
 	@field:SerializedName("public_repos")
 	val publicRepos: Int,
-
-	@field:SerializedName("email")
-	val email: String,
 
 	@field:SerializedName("followers")
 	val followers: Int,
@@ -34,4 +30,4 @@ data class ItemsItem(
 	@field:SerializedName("location")
 	val location: String,
 
-) : Parcelable
+)

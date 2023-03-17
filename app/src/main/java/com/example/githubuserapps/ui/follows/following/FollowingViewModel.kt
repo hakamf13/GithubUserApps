@@ -12,14 +12,13 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class FollowingViewModel(private val context: Context): ViewModel() {
+class FollowingViewModel: ViewModel() {
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
-    private val _following = MutableLiveData<List<ItemsItem>>()
-    val following: LiveData<List<ItemsItem>> = _following
-
+    private val _following = MutableLiveData<List<ItemsItem>?>(null)
+    val following: LiveData<List<ItemsItem>?> = _following
 
     fun getUserFollowing(context: Context, followingData: String) {
         _isLoading.value = true

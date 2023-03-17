@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.githubuserapps.adapter.ListUserAdapter
@@ -13,14 +14,15 @@ import com.example.githubuserapps.data.remote.response.ItemsItem
 import com.example.githubuserapps.data.token.ConstantToken
 import com.example.githubuserapps.databinding.FragmentFollowingBinding
 import com.example.githubuserapps.ui.detail.DetailActivity
-import com.example.githubuserapps.utils.ViewModelFactory
 
 class FollowingFragment : Fragment() {
 
     private var _followingBinding: FragmentFollowingBinding? = null
     private val followingBinding get() = _followingBinding!!
 
-    private lateinit var followingViewModel: FollowingViewModel
+    private val followingViewModel by viewModels<FollowingViewModel>()
+
+//    private lateinit var followingViewModel: FollowingViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,9 +33,6 @@ class FollowingFragment : Fragment() {
             container,
             false
         )
-
-        val followingFactory = ViewModelFactory(requireContext())
-        followingViewModel = ViewModelProvider(requireActivity(), followingFactory)[FollowingViewModel::class.java]
 
         followingViewModel.following.observe(viewLifecycleOwner) {
             if (it == null) {

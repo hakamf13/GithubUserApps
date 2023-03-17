@@ -2,6 +2,7 @@ package com.example.githubuserapps.ui.main
 
 import android.app.SearchManager
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -13,7 +14,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.githubuserapps.R
 import com.example.githubuserapps.adapter.ListUserAdapter
 import com.example.githubuserapps.data.remote.response.ItemsItem
+import com.example.githubuserapps.data.token.ConstantToken.Companion.USER_KEY
 import com.example.githubuserapps.databinding.ActivityMainBinding
+import com.example.githubuserapps.ui.detail.DetailActivity
 
 class MainActivity : AppCompatActivity() {
     private val mainBinding: ActivityMainBinding by lazy {
@@ -50,6 +53,16 @@ class MainActivity : AppCompatActivity() {
             rvGithubUser.layoutManager = LinearLayoutManager(this@MainActivity)
             rvGithubUser.adapter = userAdapter
         }
+        userAdapter.setOnItemClickCallback(object : ListUserAdapter.OnItemClickCallback {
+            override fun onItemClicked(data: ItemsItem) {
+                val detailIntent = Intent(
+                    this@MainActivity,
+                    DetailActivity::class.java
+                )
+                detailIntent.putExtra(USER_KEY, data.login)
+                startActivity(detailIntent)
+            }
+        })
     }
 
     private fun showLoading(isLoading: Boolean) {
