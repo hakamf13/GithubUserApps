@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_gravity="center"
     android:layout_marginStart="10dp"
     android:layout_marginEnd="10dp"
@@ -39,7 +40,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
-            android:layout_marginEnd="5dp"
+            android:layout_marginEnd="30dp"
             android:text="@string/title_username"
             android:textSize="12sp"
             android:textColor="@color/white_90"
@@ -55,7 +56,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
-            android:layout_marginEnd="5dp"
+            android:layout_marginEnd="15dp"
             android:text="@string/dummy_item_username"
             android:textStyle="bold"
             android:textSize="20sp"
@@ -66,6 +67,18 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_title_text_username"
             app:layout_constraintBottom_toBottomOf="@+id/iv_img_avatar"
             app:layout_constraintEnd_toEndOf="parent"/>
+
+        <ImageButton
+            android:id="@+id/btn_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#00000000"
+            android:src="@drawable/baseline_delete_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_title_text_username"
+            app:layout_constraintTop_toTopOf="@id/iv_img_avatar"
+            android:contentDescription="@string/talkback_tap_to_delete_favorite_user"
+            tools:ignore="TouchTargetSizeCheck" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -15,13 +15,15 @@ import com.example.githubuserapps.data.token.ConstantToken.Companion.USERNAME
 import com.example.githubuserapps.data.token.ConstantToken.Companion.USER_KEY
 import com.example.githubuserapps.databinding.FragmentFollowersBinding
 import com.example.githubuserapps.ui.detail.DetailActivity
+import com.example.githubuserapps.ui.detail.DetailViewModel
+import com.example.githubuserapps.util.ViewModelFactory
 
 class FollowersFragment : Fragment() {
 
     private var _followersBinding: FragmentFollowersBinding? = null
     private val followersBinding get() = _followersBinding!!
 
-    private val followersViewModel by viewModels<FollowersViewModel>()
+    private lateinit var followersViewModel: DetailViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,12 +35,18 @@ class FollowersFragment : Fragment() {
             false
         )
 
-        followersViewModel.followers.observe(viewLifecycleOwner) {
-            if (it == null) {
+        val followersFactory = ViewModelFactory(requireContext())
+        followersViewModel = ViewModelProvider(
+            requireActivity(),
+            followersFactory
+        )[DetailViewModel::class.java]
+
+        followersViewModel.followers.observe(viewLifecycleOwner) { followersData ->
+            if (followersData == null) {
                 val userData = arguments?.getString(USERNAME) ?: ""
                 followersViewModel.getUserFollowers(requireActivity(), userData)
             } else {
-                showFollowers(it)
+                showFollowers(followersData)
             }
         }
 

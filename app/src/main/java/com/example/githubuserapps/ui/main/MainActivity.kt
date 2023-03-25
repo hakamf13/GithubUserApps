@@ -6,9 +6,15 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SearchView
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.preferencesDataStore
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.githubuserapps.R
@@ -17,6 +23,11 @@ import com.example.githubuserapps.data.remote.response.ItemsItem
 import com.example.githubuserapps.data.token.ConstantToken.Companion.USER_KEY
 import com.example.githubuserapps.databinding.ActivityMainBinding
 import com.example.githubuserapps.ui.detail.DetailActivity
+import com.example.githubuserapps.ui.favorite.FavoriteActivity
+import com.example.githubuserapps.ui.settings.SettingActivity
+import com.example.githubuserapps.ui.settings.SettingPreferences
+import com.example.githubuserapps.ui.settings.SettingViewModel
+import com.example.githubuserapps.ui.settings.SettingViewModelFactory
 
 class MainActivity : AppCompatActivity() {
     private val mainBinding: ActivityMainBinding by lazy {
@@ -25,9 +36,24 @@ class MainActivity : AppCompatActivity() {
 
     private val mainViewModel by viewModels<MainViewModel>()
 
+    private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(mainBinding.root)
+
+        val pref = SettingPreferences.getInstance(dataStore)
+        val mainFactory = ViewModelProvider(
+            this,
+            SettingViewModelFactory(pref)
+        )[SettingViewModel::class.java]
+        mainFactory.getThemeSetting().observe(this) { isDayModeActive: Boolean ->
+            if (isDayModeActive) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
+        }
 
         val layoutManager = LinearLayoutManager(this)
         mainBinding.rvGithubUser.layoutManager = layoutManager
@@ -37,8 +63,8 @@ class MainActivity : AppCompatActivity() {
         )
         mainBinding.rvGithubUser.addItemDecoration(itemDecoration)
 
-        mainViewModel.search.observe(this) {
-            setUserData(it)
+        mainViewModel.search.observe(this) { searchItems ->
+            setUserData(searchItems)
         }
         mainViewModel.isLoading.observe(this) {
             showLoading(it)
@@ -95,6 +121,31 @@ class MainActivity : AppCompatActivity() {
             })
         }
 
-        return super.onCreateOptionsMenu(menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+
+            R.id.favorite -> {
+                val favoriteIntent = Intent(
+                    this@MainActivity,
+                    FavoriteActivity::class.java
+                )
+                startActivity(favoriteIntent)
+                true
+            }
+
+            R.id.settings -> {
+                val settingIntent = Intent(
+                    this@MainActivity,
+                    SettingActivity::class.java
+                )
+                startActivity(settingIntent)
+                true
+            }
+
+            else -> true
+        }
     }
 }

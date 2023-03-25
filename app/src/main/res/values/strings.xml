@@ -29,4 +29,10 @@
     <string name="talkback_tabs_follows">This is a tabs for Followers or Following</string>
 
     <string name="action_search_text">Search an User</string>
+    <string name="action_favorite_text">Favorite</string>
+    <string name="action_setting_text">Setting</string>
+    <string name="talkback_tap_to_set_be_a_favorite_user">Tap to set be a Favorite User</string>
+    <string name="talkback_tap_to_delete_favorite_user">Tap to delete favorite user</string>
+    <string name="switch_day_mode">Day Mode</string>
+
 </resources>

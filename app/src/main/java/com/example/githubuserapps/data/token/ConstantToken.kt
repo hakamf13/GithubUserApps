@@ -13,6 +13,7 @@ class ConstantToken {
         const val TAG_FGVM = "FollowingViewModel"
         const val TAG_FSVM = "FollowersViewModel"
         const val USER_KEY = "user_key"
+        const val FAV_KEY = "fav_key"
         val TAB_FOLLOWS = intArrayOf(
             R.string.title_tabs_followers,
             R.string.title_tabs_following

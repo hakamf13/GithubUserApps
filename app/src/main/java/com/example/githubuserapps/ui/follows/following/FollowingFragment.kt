@@ -6,23 +6,36 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.githubuserapps.adapter.ListUserAdapter
 import com.example.githubuserapps.data.remote.response.ItemsItem
 import com.example.githubuserapps.data.token.ConstantToken
+import com.example.githubuserapps.data.token.ConstantToken.Companion.USERNAME
+import com.example.githubuserapps.data.token.ConstantToken.Companion.USER_KEY
 import com.example.githubuserapps.databinding.FragmentFollowingBinding
 import com.example.githubuserapps.ui.detail.DetailActivity
+import com.example.githubuserapps.ui.detail.DetailViewModel
+import com.example.githubuserapps.util.ViewModelFactory
 
 class FollowingFragment : Fragment() {
 
     private var _followingBinding: FragmentFollowingBinding? = null
     private val followingBinding get() = _followingBinding!!
 
-    private val followingViewModel by viewModels<FollowingViewModel>()
+//    private val followingFactory: ViewModelFactory by lazy {
+//        ViewModelFactory(requireContext())
+//    }
+//
+//    private val followingViewModel by lazy {
+//        ViewModelProvider(
+//            requireActivity(),
+//            followingFactory
+//        )[DetailViewModel::class.java]
+//    }
 
-//    private lateinit var followingViewModel: FollowingViewModel
+
+    private lateinit var followingViewModel: DetailViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,12 +47,18 @@ class FollowingFragment : Fragment() {
             false
         )
 
-        followingViewModel.following.observe(viewLifecycleOwner) {
-            if (it == null) {
-                val userData = arguments?.getString(ConstantToken.USERNAME) ?: ""
+        val followingFactory = ViewModelFactory(requireContext())
+         followingViewModel = ViewModelProvider(
+            requireActivity(),
+            followingFactory
+        )[DetailViewModel::class.java]
+
+        followingViewModel.following.observe(viewLifecycleOwner) { followingData ->
+            if (followingData == null) {
+                val userData = arguments?.getString(USERNAME) ?: ""
                 followingViewModel.getUserFollowing(requireActivity(), userData)
             } else {
-                showFollowers(it)
+                showFollowing(followingData)
             }
         }
 
@@ -50,14 +69,15 @@ class FollowingFragment : Fragment() {
         return followingBinding.root
     }
 
-    private fun showFollowers(userData: List<ItemsItem>) {
-        val followersAdapter = ListUserAdapter(userData)
+    private fun showFollowing(userData: List<ItemsItem>) {
+        val followingAdapter = ListUserAdapter(userData)
+//        followingBinding.rvFragmentFollowing.layoutManager = LinearLayoutManager(requireActivity())
         followingBinding.rvFragmentFollowing.layoutManager = LinearLayoutManager(activity)
-        followingBinding.rvFragmentFollowing.adapter = followersAdapter
-        followersAdapter.setOnItemClickCallback(object : ListUserAdapter.OnItemClickCallback {
+        followingBinding.rvFragmentFollowing.adapter = followingAdapter
+        followingAdapter.setOnItemClickCallback(object : ListUserAdapter.OnItemClickCallback {
             override fun onItemClicked(data: ItemsItem) {
                 val followingIntent = Intent(activity, DetailActivity::class.java)
-                followingIntent.putExtra(ConstantToken.USER_KEY, data.login)
+                followingIntent.putExtra(USER_KEY, data.login)
                 startActivity(followingIntent)
             }
         })
