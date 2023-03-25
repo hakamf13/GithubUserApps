@@ -4,8 +4,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
-import androidx.viewpager2.widget.ViewPager2
-import com.bumptech.glide.Glide
 import com.example.githubuserapps.R
 import com.example.githubuserapps.adapter.SectionsPagerAdapter
 import com.example.githubuserapps.data.local.entity.FavoriteEntity
@@ -17,7 +15,6 @@ import com.example.githubuserapps.databinding.ActivityDetailBinding
 import com.example.githubuserapps.ext.loadImage
 import com.example.githubuserapps.ext.setImageDrawableExt
 import com.example.githubuserapps.util.ViewModelFactory
-import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
 @Suppress("DEPRECATION")
@@ -86,10 +83,6 @@ class DetailActivity : AppCompatActivity() {
             tvItemRepository.text = userItems.publicRepos.toString()
             tvItemFollowers.text = userItems.followers.toString()
             tvItemFollowing.text = userItems.following.toString()
-            /*Glide.with(this@DetailActivity)
-                .load(userItems.avatarUrl)
-                .circleCrop()
-                .into(civItemAvatar)*/
             civItemAvatar.loadImage(userItems.avatarUrl)
 
             val sectionsPagerAdapter = SectionsPagerAdapter(
@@ -102,15 +95,6 @@ class DetailActivity : AppCompatActivity() {
             }) { tabs, position ->
                 tabs.text = resources.getString(TAB_FOLLOWS[position])
             }.attach()
-            /*val viewPager: ViewPager2 = vpTabsFollows
-            viewPager.adapter  = sectionsPagerAdapter
-            val tabFollows: TabLayout = tabsFollows
-            TabLayoutMediator(
-                tabFollows,
-                viewPager
-            ){ tabs, position ->
-                tabs.text = resources.getString(TAB_FOLLOWS[position])
-            }.attach()*/
 
             detailViewModel.userFavorite.observe(this@DetailActivity) { favorite ->
                 if (favorite.isNotEmpty()) {

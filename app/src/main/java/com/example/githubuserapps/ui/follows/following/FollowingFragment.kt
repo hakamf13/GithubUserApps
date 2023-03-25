@@ -10,7 +10,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.githubuserapps.adapter.ListUserAdapter
 import com.example.githubuserapps.data.remote.response.ItemsItem
-import com.example.githubuserapps.data.token.ConstantToken
 import com.example.githubuserapps.data.token.ConstantToken.Companion.USERNAME
 import com.example.githubuserapps.data.token.ConstantToken.Companion.USER_KEY
 import com.example.githubuserapps.databinding.FragmentFollowingBinding
@@ -22,18 +21,6 @@ class FollowingFragment : Fragment() {
 
     private var _followingBinding: FragmentFollowingBinding? = null
     private val followingBinding get() = _followingBinding!!
-
-//    private val followingFactory: ViewModelFactory by lazy {
-//        ViewModelFactory(requireContext())
-//    }
-//
-//    private val followingViewModel by lazy {
-//        ViewModelProvider(
-//            requireActivity(),
-//            followingFactory
-//        )[DetailViewModel::class.java]
-//    }
-
 
     private lateinit var followingViewModel: DetailViewModel
 
@@ -71,7 +58,6 @@ class FollowingFragment : Fragment() {
 
     private fun showFollowing(userData: List<ItemsItem>) {
         val followingAdapter = ListUserAdapter(userData)
-//        followingBinding.rvFragmentFollowing.layoutManager = LinearLayoutManager(requireActivity())
         followingBinding.rvFragmentFollowing.layoutManager = LinearLayoutManager(activity)
         followingBinding.rvFragmentFollowing.adapter = followingAdapter
         followingAdapter.setOnItemClickCallback(object : ListUserAdapter.OnItemClickCallback {

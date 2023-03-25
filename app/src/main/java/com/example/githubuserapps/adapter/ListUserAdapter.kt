@@ -27,10 +27,6 @@ class ListUserAdapter(private val listUser: List<ItemsItem>): RecyclerView.Adapt
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         val user = listUser[position]
-        /*Glide.with(holder.itemView.context)
-            .load(user.avatarUrl)
-            .circleCrop()
-            .into(holder.itemRowUserBinding.ivImgAvatar)*/
         holder.itemRowUserBinding.ivImgAvatar.loadImage(user.avatarUrl)
         holder.itemRowUserBinding.tvTextUsername.text = user.login
         holder.itemView.setOnClickListener {

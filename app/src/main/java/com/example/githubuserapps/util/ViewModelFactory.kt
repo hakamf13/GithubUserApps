@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.githubuserapps.ui.detail.DetailViewModel
 import com.example.githubuserapps.ui.favorite.FavoriteViewModel
-import com.example.githubuserapps.ui.follows.followers.FollowersFragment
 
 class ViewModelFactory(
     private val context: Context
