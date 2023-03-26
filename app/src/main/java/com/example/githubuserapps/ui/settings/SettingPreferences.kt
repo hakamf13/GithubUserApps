@@ -19,9 +19,9 @@ class SettingPreferences private constructor(
         }
     }
 
-    suspend fun saveThemeSetting(isDayModeActive: Boolean) {
+    suspend fun saveThemeSetting(isDarkModeActive: Boolean) {
         dataStore.edit { preferences ->
-            preferences[THEME_KEY] = isDayModeActive
+            preferences[THEME_KEY] = isDarkModeActive
         }
     }
 

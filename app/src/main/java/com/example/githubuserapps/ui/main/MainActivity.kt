@@ -47,8 +47,8 @@ class MainActivity : AppCompatActivity() {
             this,
             SettingViewModelFactory(pref)
         )[SettingViewModel::class.java]
-        mainFactory.getThemeSetting().observe(this) { isDayModeActive: Boolean ->
-            if (isDayModeActive) {
+        mainFactory.getThemeSetting().observe(this) { isDarkModeActive: Boolean ->
+            if (isDarkModeActive) {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
             } else {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)

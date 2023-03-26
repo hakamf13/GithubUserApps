@@ -14,9 +14,9 @@ class SettingViewModel(
         return pref.getThemeSetting().asLiveData()
     }
 
-    fun saveThemeSetting(isDayModeActive: Boolean) {
+    fun saveThemeSetting(isDarkModeActive: Boolean) {
         viewModelScope.launch {
-            pref.saveThemeSetting(isDayModeActive)
+            pref.saveThemeSetting(isDarkModeActive)
         }
     }
 
